@@ -11,9 +11,10 @@ namespace Maze_gen
 
         public Form1()
         {
+            
             InitializeComponent();
-            /*this.ResizeRedraw = false;
-            this.DoubleBuffered = true;*/
+            textBox3.ReadOnly = true;
+
         }
 
         bool begin = false;
@@ -28,11 +29,7 @@ namespace Maze_gen
 
 
 
-        public void Main()
-        {
-                                   
-        }
-    
+       
         void DrawBox(int x, int y, Brush br, Graphics gr)
         {
             gr.FillRectangle(br, x * side, y * side, side, side);
@@ -95,7 +92,7 @@ namespace Maze_gen
             }
             else
             {
-                return false;
+                return false; //клеток больше нет, завершить цикл
             }
         }
         void mazemake(int[,] maze, int height, int width, Random r, int pass, int wall)
@@ -106,9 +103,9 @@ namespace Maze_gen
             int a;
 
             x = 3; y = 3; a = 0; // Точка приземления крота и счетчик
-            while (a < 1000000)   // Аварийный выход из цикла
+            while (a < 1000000)   // Выход из цикла
             {
-                maze[y, x] = pass;
+                maze[y, x] = pass; // y - высота, x - ширина
                 a++;
 
                 while (true) // Бесконечный цикл, который прерывается только тупиком
@@ -184,31 +181,45 @@ namespace Maze_gen
 
         private void button1_Click(object sender, EventArgs e)
         {
-
-
-            //Main();
             Random r = new Random();
-            height = Convert.ToInt32(textBox1.Text);
-            if (height % 2 == 0 & height != 0)
+            try
             {
-                height++;
-            }
-            else if (height <= 0)
-            {
-                MessageBox.Show("Введенное значение должно быть числом и числом больше 0.");
-                return;
-            }
-            width = Convert.ToInt32(textBox2.Text);
-            if (width % 2 == 0 & width != 0)
-            {
-                width++;
-            }
-            else if (width <= 0)
-            {
-                MessageBox.Show("Введенное значение должно быть числом и числом больше 0.");
-                return;
-            }
+                side = Convert.ToInt32(textBox3.Text);
 
+                if (side <= 0)
+                {
+                    MessageBox.Show("Введенное значение должно быть числом и числом больше 0.");
+                    return;
+                }
+                //Main();
+                
+                height = Convert.ToInt32(textBox1.Text);
+                if (height % 2 == 0 & height != 0)
+                {
+                    height++;
+                }
+                else if (height <= 0 || height <=5)
+                {
+                    MessageBox.Show("Введенное значение должно быть числом и числом больше 0.");
+                    return;
+                }
+                width = Convert.ToInt32(textBox2.Text);
+                if (width % 2 == 0 & width != 0)
+                {
+                    width++;
+                }
+                else if (width <= 0 || width <= 5)
+                {
+                    MessageBox.Show("Введенное значение должно быть числом и числом больше 0.");
+                    return;
+                }
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Введенное значение должно быть натуральным числом и числом больше 0.");
+                return;
+            }
+            
             begin = true;
             maze = new int[height, width];
 
@@ -244,10 +255,6 @@ namespace Maze_gen
                                 //DrawBox(i, j, Brushes.White, e.Graphics);
                                 break;
                         }
-
-
-
-
                     }
                     progressBar1.Value += 1;
                     //Console.Write("\n");
@@ -262,7 +269,17 @@ namespace Maze_gen
            // Console.Write("\n");
         }
 
+        private void trackBar1_Scroll(object sender, EventArgs e) //обработка трек бара
+        {
+            int x = Convert.ToUInt16(trackBar1.Value);
 
+            textBox3.Text = Convert.ToString(x);
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)  //полное закрытие из вторичной формы
+        {
+            Application.Exit();
+        }
     }
 
 }

@@ -38,9 +38,11 @@ namespace Maze_gen
             this.panel1 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.hScrollBar1 = new System.Windows.Forms.HScrollBar();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.label5 = new System.Windows.Forms.Label();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
             // textBox1
@@ -88,9 +90,9 @@ namespace Maze_gen
             this.panel1.AutoScroll = true;
             this.panel1.AutoSize = true;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Location = new System.Drawing.Point(334, 230);
+            this.panel1.Location = new System.Drawing.Point(85, 198);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(69, 49);
+            this.panel1.Size = new System.Drawing.Size(644, 216);
             this.panel1.TabIndex = 8;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
@@ -112,31 +114,42 @@ namespace Maze_gen
             this.label4.TabIndex = 10;
             this.label4.Text = "Ширина";
             // 
-            // hScrollBar1
-            // 
-            this.hScrollBar1.LargeChange = 9;
-            this.hScrollBar1.Location = new System.Drawing.Point(534, 171);
-            this.hScrollBar1.Maximum = 10;
-            this.hScrollBar1.Minimum = 2;
-            this.hScrollBar1.Name = "hScrollBar1";
-            this.hScrollBar1.Size = new System.Drawing.Size(140, 24);
-            this.hScrollBar1.TabIndex = 11;
-            this.hScrollBar1.Value = 2;
-            // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(548, 148);
+            this.textBox3.Location = new System.Drawing.Point(617, 62);
+            this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(100, 20);
             this.textBox3.TabIndex = 12;
-            this.textBox3.Text = "10";
+            this.textBox3.Text = "5";
+            
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(54, 117);
+            this.progressBar1.Location = new System.Drawing.Point(42, 129);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(100, 23);
             this.progressBar1.TabIndex = 13;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(617, 36);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(96, 13);
+            this.label5.TabIndex = 14;
+            this.label5.Text = "Размер квадрата";
+            // 
+            // trackBar1
+            // 
+            this.trackBar1.Location = new System.Drawing.Point(613, 88);
+            this.trackBar1.Maximum = 20;
+            this.trackBar1.Minimum = 2;
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Size = new System.Drawing.Size(104, 45);
+            this.trackBar1.TabIndex = 15;
+            this.trackBar1.Value = 2;
+            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             // 
             // Form1
             // 
@@ -144,9 +157,10 @@ namespace Maze_gen
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.trackBar1);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.hScrollBar1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.panel1);
@@ -155,9 +169,14 @@ namespace Maze_gen
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "Kurs_Maze";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
+
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -177,9 +196,10 @@ namespace Maze_gen
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.HScrollBar hScrollBar1;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TrackBar trackBar1;
     }
 }
 
