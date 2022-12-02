@@ -97,15 +97,15 @@ namespace Maze_gen
         }
         void mazemake(int[,] maze, int height, int width, Random r, int pass, int wall)
         {
-            int x;
-            int y;
+            int x_width;
+            int y_height;
             int c;
             int a;
 
-            x = 3; y = 3; a = 0; // Точка приземления крота и счетчик
+            x_width = 3; y_height = 3; a = 0; // Точка приземления крота и счетчик
             while (a < 1000000)   // Выход из цикла
             {
-                maze[y, x] = pass; // y - высота, x - ширина
+                maze[y_height, x_width] = pass; // y - высота, x_width - ширина
                 a++;
 
                 while (true) // Бесконечный цикл, который прерывается только тупиком
@@ -115,66 +115,76 @@ namespace Maze_gen
                     switch (c)          // 
                     {
                         case 0: // Вверх
-                            if (y != 1)
+                            if (y_height != 1)
                             {
-                                if (maze[y - 2, x] == wall)
+                                if (maze[y_height - 2, x_width] == wall)
                                 {
-                                    maze[y - 1, x] = pass;
-                                    maze[y - 2, x] = pass;
-                                    y -= 2;
+                                    maze[y_height - 1, x_width] = pass;
+                                    maze[y_height - 2, x_width] = pass;
+                                    y_height -= 2;
                                 }
                             }
                             break;
 
                         case 1: // Вниз
-                            if (y != height - 2)
+                            if (y_height != height - 2)
                             {
-                                if (maze[y + 2, x] == wall)
+                                if (maze[y_height + 2, x_width] == wall)
                                 {
-                                    maze[y + 1, x] = pass;
-                                    maze[y + 2, x] = pass;
-                                    y += 2;
+                                    maze[y_height + 1, x_width] = pass;
+                                    maze[y_height + 2, x_width] = pass;
+                                    y_height += 2;
                                 }
                             }
                             break;
 
                         case 2: // Налево
-                            if (x != 1)
+                            if (x_width != 1)
                             {
-                                if (maze[y, x - 2] == wall)
+                                if (maze[y_height, x_width - 2] == wall)
                                 {
-                                    maze[y, x - 1] = pass;
-                                    maze[y, x - 2] = pass;
-                                    x -= 2;
+                                    maze[y_height, x_width - 1] = pass;
+                                    maze[y_height, x_width - 2] = pass;
+                                    x_width -= 2;
                                 }
                             }
                             break;
 
                         case 3: // Направо
-                            if (x != width - 2)
+                            if (x_width != width - 2) //массив не четный, по этому это проверка на нечетное число
                             {
-                                if (maze[y, x + 2] == wall)
+                                if (maze[y_height, x_width + 2] == wall)
                                 {
-                                    maze[y, x + 1] = pass;
-                                    maze[y, x + 2] = pass;
-                                    x += 2;
+                                    maze[y_height, x_width + 1] = pass;
+                                    maze[y_height, x_width + 2] = pass;
+                                    x_width += 2;
                                 }
                             }
                             break;
                     }
-                    if (deadend(x, y, maze, height, width, pass, wall))
+                    if (deadend(x_width, y_height, maze, height, width, pass, wall))
                     {
                         break;
                     }
                 }
 
-                if (deadend(x, y, maze, height, width, pass, wall)) // Вытаскиваем крота из тупика
+                if (deadend(x_width, y_height, maze, height, width, pass, wall)) // Вытаскиваем крота из тупика, генерируем координаты - четные
                 {
                     do
                     {
-                        x = 2 * (r.Next() % ((width - 1) / 2)) + 1;
-                        y = 2 * (r.Next() % ((height - 1) / 2)) + 1;
-                    } while (maze[y, x] != pass);
+                        /*x_width = 2 * (r.Next() % ((width - 1) / 2)) + 1;
+                        y_height = 2 * (r.Next() % ((height - 1) / 2)) + 1;*/
+                         x_width = r.Next(1,width-1);
+                        if (x_width % 2 ==0)
+                        {
+                            x_width++;
+                        }
+                         y_height = r.Next(1, height-1);
+                        if (y_height % 2 == 0)
+                        {
+                            y_height++;
+                        }
+                    } while (maze[y_height, x_width] != pass);
                 }
             }
         }
